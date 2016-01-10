@@ -28,7 +28,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="BudgiePlugin.top_of_page"></a>BudgiePlugin</span></h2>
-<p>BudgiePlugin</p>
+<p>BudgiePlugin — Main entry point for Budgie Panel Applets</p>
 </td>
 <td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
@@ -57,6 +57,63 @@
 </div>
 <div class="refsect1">
 <a name="BudgiePlugin.description"></a><h2>Description</h2>
+<p>The BudgiePlugin provides the main entry point for modules that wish
+to extend the functionality of the Budgie Panel. In reality, the vast
+majority of the work is actually implemented in <a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a>.</p>
+<p>Implementations must implement the <a class="link" href="BudgiePlugin.html#budgie-plugin-get-panel-widget" title="budgie_plugin_get_panel_widget ()"><span class="type">budgie_plugin_get_panel_widget</span></a> method,
+and provide a new instance of their implementation of the BudgieApplet:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="type">static</span> BudgieApplet *my_type_get_panel_widget(BudgiePlugin *self, gchar *uuid)
+{
+        <span class="keyword">return</span> my_applet_new(uuid);
+}
+
+<span class="type">static</span> <span class="type">void</span> my_class_init(GObjectClass *klass)
+{
+        MyClass *mc = MY_CLASS(klass);
+        ...
+        mc-&gt;get_panel_widget = my_type_get_panel_widget;
+}</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>In Vala we would achieve like so:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>In Vala we can achieve it like so:</p></li></ul></div>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting">public Budgie.Applet get_panel_widget(string uuid)
+{
+    <span class="keyword">return</span> new MyApplet();
+}</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
 </div>
 <div class="refsect1">
 <a name="BudgiePlugin.functions_details"></a><h2>Functions</h2>
@@ -66,7 +123,29 @@
 budgie_plugin_get_panel_widget (<em class="parameter"><code><a class="link" href="BudgiePlugin.html" title="BudgiePlugin"><span class="type">BudgiePlugin</span></a> *self</code></em>,
                                 <em class="parameter"><code><a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uuid</code></em>);</pre>
 <div class="refsect3">
-<a name="id-1.2.4.6.2.4"></a><h4>Returns</h4>
+<a name="id-1.2.4.6.2.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>A <a class="link" href="BudgiePlugin.html" title="BudgiePlugin"><span class="type">BudgiePlugin</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uuid</p></td>
+<td class="parameter_description"><p>UUID for this new instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.4.6.2.5"></a><h4>Returns</h4>
 <p> A newly initialised panel widget. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>

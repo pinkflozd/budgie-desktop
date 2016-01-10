@@ -30,7 +30,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="BudgieApplet.top_of_page"></a>BudgieApplet</span></h2>
-<p>BudgieApplet</p>
+<p>BudgieApplet — Budgie Panel GTK+ Widget</p>
 </td>
 <td class="gallery_image" valign="top" align="right"></td>
 </tr></table></div>
@@ -218,6 +218,19 @@
 </div>
 <div class="refsect1">
 <a name="BudgieApplet.description"></a><h2>Description</h2>
+<p>The BudgieApplet is the main event when it comes to providing a Budgie
+Panel extension. This is the widget that is visible to the user, and is
+provided by, and instaniated by, your <a class="link" href="BudgiePlugin.html" title="BudgiePlugin"><span class="type">BudgiePlugin</span></a>.</p>
+<p>Those implementing applets have a specific API available to them in order
+to achieve better integration with the overall desktop. At the bare minimum
+you should at least ensure that your applet respects the sizes exposed by
+the managing panel, via the <a class="link" href="BudgieApplet.html#BudgieApplet-panel-size-changed" title="The “panel-size-changed” signal"><span class="type">“panel-size-changed”</span></a> signal.</p>
+<p>BudgieApplet extends <span class="type">GtkBin</span> to leave you free to make your own choices
+on internal applet layout and configuration. Do note, however, that the
+panel implementation will not call <span class="type">gtk_widget_show_all</span>, it is solely
+your responsibility to ensure all of your contents are displayed. This
+is to enable applet's to contextually hide part of their user interface
+when required.</p>
 </div>
 <div class="refsect1">
 <a name="BudgieApplet.functions_details"></a><h2>Functions</h2>
@@ -238,9 +251,73 @@ budgie_applet_new (<em class="parameter"><code><span class="type">void</span></c
 budgie_applet_invoke_action (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
                              <em class="parameter"><code><a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="type">BudgiePanelAction</span></a> action</code></em>);</pre>
 <p>Invoke the given action on this applet. This action will only be one
-that has been declared in supported actions bitmask</p>
+that has been declared in supported actions bitmask.</p>
+<p>To allow better integration between the Budgie Desktop, and the applets
+that live within it, the panel will relay actions to applets that have
+set their <a class="link" href="BudgieApplet.html#BudgieApplet--supported-actions" title="The “supported-actions” property"><span class="type">“supported-actions”</span></a> to a matching bitmask.</p>
+<p>For example, if we wish to listen for Menu Key events, we can simply do
+the following in C:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="type">static</span> <span class="type">void</span> my_applet_invoke_action(BudgieApplet *applet, BudgiePanelAction action)
+{
+        <span class="keyword">if</span> (action == BUDGIE_PANEL_ACTION_MENU) {
+                my_applet_do_predict_the_lottery(MY_APPLET(applet));
+        }
+}
+
+<span class="type">static</span> <span class="type">void</span> my_class_init(GObjectClass *class)
+{
+        MyClass *mc = MY_CLASS(klass);
+        ..
+        mc-&gt;invoke_action = my_applet_invoke_action;
+}</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>Likewise, a Vala implementation might look like the following:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6</pre></td>
+        <td class="listing_code"><pre class="programlisting">public override <span class="type">void</span> invoke_action(Budgie.PanelAction action)
+{
+    <span class="keyword">if</span> (action == Budgie.PanelAction.MENU) {
+        this.predict_the_lottery();
+    }
+}</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
 <div class="refsect3">
-<a name="id-1.2.2.9.3.5"></a><h4>Parameters</h4>
+<a name="id-1.2.2.9.3.12"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -262,14 +339,24 @@ that has been declared in supported actions bitmask</p>
 budgie_applet_supports_settings (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
 <p>Implementations should override this to return TRUE if they support
 a settings UI</p>
+<div class="refsect3">
+<a name="id-1.2.2.9.4.5"></a><h4>Returns</h4>
+<p> true if this implementation supports a Settings UI</p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="budgie-applet-get-settings-ui"></a><h3>budgie_applet_get_settings_ui ()</h3>
 <pre class="programlisting"><span class="returnvalue">GtkWidget</span> *
 budgie_applet_get_settings_ui (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+<p>For applets that need to expose settings, they should both override the
+<span class="type">“supports_settings”</span> method and return a new widget instance
+whenever this function is invoked.</p>
+<p>This UI will live in the Raven sidebar within the Budgie Desktop, and
+will be destroyed as soon as it's not being used. It's advisable to keep
+this widget implementation light, and to prefer vertical space.</p>
 <div class="refsect3">
-<a name="id-1.2.2.9.5.4"></a><h4>Returns</h4>
+<a name="id-1.2.2.9.5.6"></a><h4>Returns</h4>
 <p> A GTK Settings UI. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
 </div>
@@ -280,8 +367,17 @@ budgie_applet_get_settings_ui (<em class="parameter"><code><a class="link" href=
 <pre class="programlisting"><a href="../gio/GSettings.html"><span class="returnvalue">GSettings</span></a> *
 budgie_applet_get_applet_settings (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
                                    <em class="parameter"><code><a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uuid</code></em>);</pre>
+<p>If your <a class="link" href="BudgiePlugin.html" title="BudgiePlugin"><span class="type">BudgiePlugin</span></a> implementation passes the UUID to your BudgieApplet
+implementation on construction, you can take advantage of per-instance
+settings.</p>
+<p>For most applets, global GSettings keys are more than suffice. However,
+in some situations, it may be beneficial to enable multiple unique instances
+of your applet, each with their own configuration.</p>
+<p>To facilitate this, use this function to create a new relocatable settings
+instance using your UUID. Make sure you set the <a class="link" href="BudgieApplet.html#BudgieApplet--settings-schema" title="The “settings-schema” property"><span class="type">“settings-schema”</span></a>
+and <a class="link" href="BudgieApplet.html#BudgieApplet--settings-prefix" title="The “settings-prefix” property"><span class="type">“settings-prefix”</span></a> properties first.</p>
 <div class="refsect3">
-<a name="id-1.2.2.9.6.4"></a><h4>Parameters</h4>
+<a name="id-1.2.2.9.6.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -296,7 +392,7 @@ budgie_applet_get_applet_settings (<em class="parameter"><code><a class="link" h
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.2.9.6.5"></a><h4>Returns</h4>
+<a name="id-1.2.2.9.6.8"></a><h4>Returns</h4>
 <p> A newly created <a href="../gio/GSettings.html"><span class="type">GSettings</span></a> for this applet instance. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
@@ -307,12 +403,14 @@ budgie_applet_get_applet_settings (<em class="parameter"><code><a class="link" h
 <pre class="programlisting"><span class="returnvalue">void</span>
 budgie_applet_set_settings_schema (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
                                    <em class="parameter"><code>const <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *schema</code></em>);</pre>
+<p>Utility function for Python usage. See <a class="link" href="BudgieApplet.html#BudgieApplet--settings-schema" title="The “settings-schema” property"><span class="type">“settings-schema”</span></a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="budgie-applet-get-settings-schema"></a><h3>budgie_applet_get_settings_schema ()</h3>
 <pre class="programlisting">const <a href="../glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 budgie_applet_get_settings_schema (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+<p>Utility function for Python usage. See <a class="link" href="BudgieApplet.html#BudgieApplet--settings-schema" title="The “settings-schema” property"><span class="type">“settings-schema”</span></a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -320,12 +418,14 @@ budgie_applet_get_settings_schema (<em class="parameter"><code><a class="link" h
 <pre class="programlisting"><span class="returnvalue">void</span>
 budgie_applet_set_settings_prefix (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
                                    <em class="parameter"><code>const <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prefix</code></em>);</pre>
+<p>Utility function for Python usage. See: <a class="link" href="BudgieApplet.html#BudgieApplet--settings-prefix" title="The “settings-prefix” property"><span class="type">“settings-prefix”</span></a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="budgie-applet-get-settings-prefix"></a><h3>budgie_applet_get_settings_prefix ()</h3>
 <pre class="programlisting">const <a href="../glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 budgie_applet_get_settings_prefix (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+<p>Utility function for Python usage. See: <a class="link" href="BudgieApplet.html#BudgieApplet--settings-prefix" title="The “settings-prefix” property"><span class="type">“settings-prefix”</span></a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -480,7 +580,16 @@ a global fashion (such as via the D-BUS API)</p>
 <div class="refsect2">
 <a name="BudgieApplet--settings-prefix"></a><h3>The <code class="literal">“settings-prefix”</code> property</h3>
 <pre class="programlisting">  “settings-prefix”          <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
-<p>Set the GSettings schema prefix.</p>
+<p>The GSettings schema path prefix for this applet</p>
+<p>For applets that require unique instance configuration, the
+panel management must know where to initialise the settings
+within the tree. The path takes the form:</p>
+<p><code class="literal">$SETTINGS_PREFIX/{$UUID}</code></p>
+<p>As an example, the Budgie Menu Applet set's the <code class="literal">settings-prefix</code>
+to:
+<code class="literal">/com/solus-project/budgie-panel/instance/budgie-menu</code>.</p>
+<p>This results in relocatable schemas being created at:</p>
+<p><code class="literal">/com/solus-project/budgie-panel/instance/budgie-menu/{$UUID}</code></p>
 <p>Flags: Read / Write</p>
 <p>Default value: NULL</p>
 </div>
@@ -488,7 +597,14 @@ a global fashion (such as via the D-BUS API)</p>
 <div class="refsect2">
 <a name="BudgieApplet--settings-schema"></a><h3>The <code class="literal">“settings-schema”</code> property</h3>
 <pre class="programlisting">  “settings-schema”          <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
-<p>Set the GSettings relocatable schema ID.</p>
+<p>The ID of the GSettings schema used by this applet</p>
+<p>This only takes effect when you've also set <a class="link" href="BudgieApplet.html#BudgieApplet--settings-prefix" title="The “settings-prefix” property"><span class="type">“settings-prefix”</span></a>,
+and is used by the panel managemen to both initialise and delete your per-instance
+settings, respectively.</p>
+<p>As an example, the Budgie Menu Applet uses the schema:</p>
+<p><code class="literal">com.solus-project.budgie-menu</code></p>
+<p>as defined by the accompanying gschema XML file. Providing an incorrect
+schema ID is considered programmer error.</p>
 <p>Flags: Read / Write</p>
 <p>Default value: NULL</p>
 </div>
@@ -496,7 +612,7 @@ a global fashion (such as via the D-BUS API)</p>
 <div class="refsect2">
 <a name="BudgieApplet--supported-actions"></a><h3>The <code class="literal">“supported-actions”</code> property</h3>
 <pre class="programlisting">  “supported-actions”        <a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="type">BudgiePanelAction</span></a></pre>
-<p>Get/set the supported panel actions.</p>
+<p>The actions supported by this applet instance</p>
 <p>Flags: Read / Write</p>
 <p>Default value: BUDGIE_PANEL_ACTION_NONE</p>
 </div>
