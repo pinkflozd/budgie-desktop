@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<book xmlns="http://www.devhelp.net/book" title="budgie-desktop Reference Manual" link="index.html" author="" name="budgie-desktop" version="2" language="c">
+  <chapters>
+    <sub name="Budgie Desktop" link="ch01.html">
+      <sub name="BudgieApplet" link="BudgieApplet.html"/>
+      <sub name="BudgieAppletInfo" link="BudgieAppletInfo.html"/>
+      <sub name="BudgiePlugin" link="BudgiePlugin.html"/>
+      <sub name="BudgiePopoverManager" link="BudgiePopoverManager.html"/>
+    </sub>
+    <sub name="Object Hierarchy" link="object-tree.html"/>
+    <sub name="API Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated API" link="deprecated-api-index.html"/>
+    <sub name="Annotation Glossary" link="annotation-glossary.html"/>
+  </chapters>
+  <functions>
+    <keyword type="function" name="budgie_applet_new ()" link="BudgieApplet.html#budgie-applet-new"/>
+    <keyword type="function" name="budgie_applet_invoke_action ()" link="BudgieApplet.html#budgie-applet-invoke-action"/>
+    <keyword type="function" name="budgie_applet_supports_settings ()" link="BudgieApplet.html#budgie-applet-supports-settings"/>
+    <keyword type="function" name="budgie_applet_get_settings_ui ()" link="BudgieApplet.html#budgie-applet-get-settings-ui"/>
+    <keyword type="function" name="budgie_applet_get_applet_settings ()" link="BudgieApplet.html#budgie-applet-get-applet-settings"/>
+    <keyword type="function" name="budgie_applet_set_settings_schema ()" link="BudgieApplet.html#budgie-applet-set-settings-schema"/>
+    <keyword type="function" name="budgie_applet_get_settings_schema ()" link="BudgieApplet.html#budgie-applet-get-settings-schema"/>
+    <keyword type="function" name="budgie_applet_set_settings_prefix ()" link="BudgieApplet.html#budgie-applet-set-settings-prefix"/>
+    <keyword type="function" name="budgie_applet_get_settings_prefix ()" link="BudgieApplet.html#budgie-applet-get-settings-prefix"/>
+    <keyword type="function" name="budgie_applet_update_popovers ()" link="BudgieApplet.html#budgie-applet-update-popovers"/>
+    <keyword type="function" name="budgie_applet_get_supported_actions ()" link="BudgieApplet.html#budgie-applet-get-supported-actions"/>
+    <keyword type="macro" name="BUDGIE_APPLET_KEY_NAME" link="BudgieApplet.html#BUDGIE-APPLET-KEY-NAME:CAPS"/>
+    <keyword type="macro" name="BUDGIE_APPLET_KEY_ALIGN" link="BudgieApplet.html#BUDGIE-APPLET-KEY-ALIGN:CAPS"/>
+    <keyword type="macro" name="BUDGIE_APPLET_KEY_POS" link="BudgieApplet.html#BUDGIE-APPLET-KEY-POS:CAPS"/>
+    <keyword type="enum" name="enum BudgiePanelAction" link="BudgieApplet.html#BudgiePanelAction"/>
+    <keyword type="struct" name="struct BudgieAppletClass" link="BudgieApplet.html#BudgieAppletClass"/>
+    <keyword type="property" name="The “settings-prefix” property" link="BudgieApplet.html#BudgieApplet--settings-prefix"/>
+    <keyword type="property" name="The “settings-schema” property" link="BudgieApplet.html#BudgieApplet--settings-schema"/>
+    <keyword type="property" name="The “supported-actions” property" link="BudgieApplet.html#BudgieApplet--supported-actions"/>
+    <keyword type="signal" name="The “panel-size-changed” signal" link="BudgieApplet.html#BudgieApplet-panel-size-changed"/>
+    <keyword type="function" name="budgie_applet_info_new ()" link="BudgieAppletInfo.html#budgie-applet-info-new"/>
+    <keyword type="property" name="The “alignment” property" link="BudgieAppletInfo.html#BudgieAppletInfo--alignment"/>
+    <keyword type="property" name="The “applet” property" link="BudgieAppletInfo.html#BudgieAppletInfo--applet"/>
+    <keyword type="property" name="The “description” property" link="BudgieAppletInfo.html#BudgieAppletInfo--description"/>
+    <keyword type="property" name="The “icon” property" link="BudgieAppletInfo.html#BudgieAppletInfo--icon"/>
+    <keyword type="property" name="The “name” property" link="BudgieAppletInfo.html#BudgieAppletInfo--name"/>
+    <keyword type="property" name="The “position” property" link="BudgieAppletInfo.html#BudgieAppletInfo--position"/>
+    <keyword type="property" name="The “settings” property" link="BudgieAppletInfo.html#BudgieAppletInfo--settings"/>
+    <keyword type="property" name="The “uuid” property" link="BudgieAppletInfo.html#BudgieAppletInfo--uuid"/>
+    <keyword type="function" name="budgie_plugin_get_panel_widget ()" link="BudgiePlugin.html#budgie-plugin-get-panel-widget"/>
+    <keyword type="function" name="budgie_popover_manager_register_popover ()" link="BudgiePopoverManager.html#budgie-popover-manager-register-popover"/>
+    <keyword type="function" name="budgie_popover_manager_unregister_popover ()" link="BudgiePopoverManager.html#budgie-popover-manager-unregister-popover"/>
+    <keyword type="function" name="budgie_popover_manager_show_popover ()" link="BudgiePopoverManager.html#budgie-popover-manager-show-popover"/>
+    <keyword type="constant" name="BUDGIE_PANEL_ACTION_NONE" link="BudgieApplet.html#BUDGIE-PANEL-ACTION-NONE:CAPS"/>
+    <keyword type="constant" name="BUDGIE_PANEL_ACTION_MENU" link="BudgieApplet.html#BUDGIE-PANEL-ACTION-MENU:CAPS"/>
+    <keyword type="constant" name="BUDGIE_PANEL_ACTION_MAX" link="BudgieApplet.html#BUDGIE-PANEL-ACTION-MAX:CAPS"/>
+  </functions>
+</book>

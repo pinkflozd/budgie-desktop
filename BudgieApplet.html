@@ -1,0 +1,559 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>BudgieApplet</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="index.html" title="budgie-desktop Reference Manual">
+<link rel="up" href="ch01.html" title="Budgie Desktop">
+<link rel="prev" href="ch01.html" title="Budgie Desktop">
+<link rel="next" href="BudgieAppletInfo.html" title="BudgieAppletInfo">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#BudgieApplet.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#BudgieApplet.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#BudgieApplet.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#BudgieApplet.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="BudgieAppletInfo.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="BudgieApplet"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="BudgieApplet.top_of_page"></a>BudgieApplet</span></h2>
+<p>BudgieApplet</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="BudgieApplet.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="returnvalue">BudgieApplet</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-new" title="budgie_applet_new ()">budgie_applet_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-invoke-action" title="budgie_applet_invoke_action ()">budgie_applet_invoke_action</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="../glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-supports-settings" title="budgie_applet_supports_settings ()">budgie_applet_supports_settings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GtkWidget</span> *
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-get-settings-ui" title="budgie_applet_get_settings_ui ()">budgie_applet_get_settings_ui</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="../gio/GSettings.html"><span class="returnvalue">GSettings</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-get-applet-settings" title="budgie_applet_get_applet_settings ()">budgie_applet_get_applet_settings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-set-settings-schema" title="budgie_applet_set_settings_schema ()">budgie_applet_set_settings_schema</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="../glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-get-settings-schema" title="budgie_applet_get_settings_schema ()">budgie_applet_get_settings_schema</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-set-settings-prefix" title="budgie_applet_set_settings_prefix ()">budgie_applet_set_settings_prefix</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="../glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-get-settings-prefix" title="budgie_applet_get_settings_prefix ()">budgie_applet_get_settings_prefix</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-update-popovers" title="budgie_applet_update_popovers ()">budgie_applet_update_popovers</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="returnvalue">BudgiePanelAction</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="BudgieApplet.html#budgie-applet-get-supported-actions" title="budgie_applet_get_supported_actions ()">budgie_applet_get_supported_actions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="BudgieApplet.html#BudgieApplet--settings-prefix" title="The “settings-prefix” property">settings-prefix</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="BudgieApplet.html#BudgieApplet--settings-schema" title="The “settings-schema” property">settings-schema</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="type">BudgiePanelAction</span></a></td>
+<td class="property_name"><a class="link" href="BudgieApplet.html#BudgieApplet--supported-actions" title="The “supported-actions” property">supported-actions</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="BudgieApplet.html#BudgieApplet-panel-size-changed" title="The “panel-size-changed” signal">panel-size-changed</a></td>
+<td class="signal_flags"><a href="../gobject/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="BudgieApplet.html#BUDGIE-APPLET-KEY-NAME:CAPS" title="BUDGIE_APPLET_KEY_NAME">BUDGIE_APPLET_KEY_NAME</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="BudgieApplet.html#BUDGIE-APPLET-KEY-ALIGN:CAPS" title="BUDGIE_APPLET_KEY_ALIGN">BUDGIE_APPLET_KEY_ALIGN</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="BudgieApplet.html#BUDGIE-APPLET-KEY-POS:CAPS" title="BUDGIE_APPLET_KEY_POS">BUDGIE_APPLET_KEY_POS</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction">BudgiePanelAction</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="BudgieApplet.html#BudgieAppletClass" title="struct BudgieAppletClass">BudgieAppletClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="../gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a href="../gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkBin
+                    <span class="lineart">╰──</span> BudgieApplet
+</pre>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="budgie-applet-new"></a><h3>budgie_applet_new ()</h3>
+<pre class="programlisting"><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="returnvalue">BudgieApplet</span></a> *
+budgie_applet_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.2.2.9.2.4"></a><h4>Returns</h4>
+<p> A new BudgieApplet. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-invoke-action"></a><h3>budgie_applet_invoke_action ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+budgie_applet_invoke_action (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
+                             <em class="parameter"><code><a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="type">BudgiePanelAction</span></a> action</code></em>);</pre>
+<p>Invoke the given action on this applet. This action will only be one
+that has been declared in supported actions bitmask</p>
+<div class="refsect3">
+<a name="id-1.2.2.9.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>action</p></td>
+<td class="parameter_description"><p>Action to invoke</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-supports-settings"></a><h3>budgie_applet_supports_settings ()</h3>
+<pre class="programlisting"><a href="../glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+budgie_applet_supports_settings (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+<p>Implementations should override this to return TRUE if they support
+a settings UI</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-get-settings-ui"></a><h3>budgie_applet_get_settings_ui ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *
+budgie_applet_get_settings_ui (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.2.2.9.5.4"></a><h4>Returns</h4>
+<p> A GTK Settings UI. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-get-applet-settings"></a><h3>budgie_applet_get_applet_settings ()</h3>
+<pre class="programlisting"><a href="../gio/GSettings.html"><span class="returnvalue">GSettings</span></a> *
+budgie_applet_get_applet_settings (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
+                                   <em class="parameter"><code><a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uuid</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.2.2.9.6.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>uuid</p></td>
+<td class="parameter_description"><p>UUID for this instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.2.9.6.5"></a><h4>Returns</h4>
+<p> A newly created <a href="../gio/GSettings.html"><span class="type">GSettings</span></a> for this applet instance. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-set-settings-schema"></a><h3>budgie_applet_set_settings_schema ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+budgie_applet_set_settings_schema (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
+                                   <em class="parameter"><code>const <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *schema</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-get-settings-schema"></a><h3>budgie_applet_get_settings_schema ()</h3>
+<pre class="programlisting">const <a href="../glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+budgie_applet_get_settings_schema (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-set-settings-prefix"></a><h3>budgie_applet_set_settings_prefix ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+budgie_applet_set_settings_prefix (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
+                                   <em class="parameter"><code>const <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prefix</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-get-settings-prefix"></a><h3>budgie_applet_get_settings_prefix ()</h3>
+<pre class="programlisting">const <a href="../glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+budgie_applet_get_settings_prefix (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-update-popovers"></a><h3>budgie_applet_update_popovers ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+budgie_applet_update_popovers (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
+                               <em class="parameter"><code><a class="link" href="BudgiePopoverManager.html" title="BudgiePopoverManager"><span class="type">BudgiePopoverManager</span></a> *manager</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.2.2.9.11.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="budgie-applet-get-supported-actions"></a><h3>budgie_applet_get_supported_actions ()</h3>
+<pre class="programlisting"><a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="returnvalue">BudgiePanelAction</span></a>
+budgie_applet_get_supported_actions (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="BUDGIE-APPLET-KEY-NAME:CAPS"></a><h3>BUDGIE_APPLET_KEY_NAME</h3>
+<pre class="programlisting">#define BUDGIE_APPLET_KEY_NAME  "name"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="BUDGIE-APPLET-KEY-ALIGN:CAPS"></a><h3>BUDGIE_APPLET_KEY_ALIGN</h3>
+<pre class="programlisting">#define BUDGIE_APPLET_KEY_ALIGN "alignment"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="BUDGIE-APPLET-KEY-POS:CAPS"></a><h3>BUDGIE_APPLET_KEY_POS</h3>
+<pre class="programlisting">#define BUDGIE_APPLET_KEY_POS   "position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="BudgiePanelAction"></a><h3>enum BudgiePanelAction</h3>
+<p>BudgiePanelAction's are bitwise OR'd so that a <a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> may expose
+the actions that it supports, when the panel is interacted with in
+a global fashion (such as via the D-BUS API)</p>
+<div class="refsect3">
+<a name="id-1.2.2.10.5.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="BUDGIE-PANEL-ACTION-NONE:CAPS"></a>BUDGIE_PANEL_ACTION_NONE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="BUDGIE-PANEL-ACTION-MENU:CAPS"></a>BUDGIE_PANEL_ACTION_MENU</p></td>
+<td class="enum_member_description">
+<p>Invoke the menu action</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="BUDGIE-PANEL-ACTION-MAX:CAPS"></a>BUDGIE_PANEL_ACTION_MAX</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="BudgieAppletClass"></a><h3>struct BudgieAppletClass</h3>
+<pre class="programlisting">struct BudgieAppletClass {
+        GtkBinClass parent_class;
+
+        void        (*invoke_action)    (BudgieApplet *self, BudgiePanelAction action);
+        gboolean   (*supports_settings) (BudgieApplet *self);
+        GtkWidget *(*get_settings_ui)   (BudgieApplet *self);
+        void        (*panel_size_changed) (BudgieApplet *applet, int panel_size, int icon_size, int small_icon_size);
+        void        (*update_popovers)     (BudgieApplet *applet, BudgiePopoverManager *manager);
+
+        gpointer padding[12];
+};
+</pre>
+<div class="refsect3">
+<a name="id-1.2.2.10.6.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GtkBinClass</span> <em class="structfield"><code><a name="BudgieAppletClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="BudgieAppletClass.invoke-action"></a>invoke_action</code></em> ()</p></td>
+<td class="struct_member_description"><p>Virtual invoke_action function</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="BudgieAppletClass.supports-settings"></a>supports_settings</code></em> ()</p></td>
+<td class="struct_member_description"><p>Virtual supports_settings function</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="BudgieAppletClass.get-settings-ui"></a>get_settings_ui</code></em> ()</p></td>
+<td class="struct_member_description"><p>Virtual get_settings_ui function</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="BudgieAppletClass.panel-size-changed"></a>panel_size_changed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Virtual panel_size_changed function</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="BudgieAppletClass.update-popovers"></a>update_popovers</code></em> ()</p></td>
+<td class="struct_member_description"><p>Virtual update_popovers method</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="../glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="BudgieAppletClass.padding"></a>padding</code></em>[12];</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="BudgieApplet--settings-prefix"></a><h3>The <code class="literal">“settings-prefix”</code> property</h3>
+<pre class="programlisting">  “settings-prefix”          <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Set the GSettings schema prefix.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="BudgieApplet--settings-schema"></a><h3>The <code class="literal">“settings-schema”</code> property</h3>
+<pre class="programlisting">  “settings-schema”          <a href="../glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Set the GSettings relocatable schema ID.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="BudgieApplet--supported-actions"></a><h3>The <code class="literal">“supported-actions”</code> property</h3>
+<pre class="programlisting">  “supported-actions”        <a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="type">BudgiePanelAction</span></a></pre>
+<p>Get/set the supported panel actions.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: BUDGIE_PANEL_ACTION_NONE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="BudgieApplet.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="BudgieApplet-panel-size-changed"></a><h3>The <code class="literal">“panel-size-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *applet,
+               <a href="../glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>          panel_size,
+               <a href="../glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>          icon_size,
+               <a href="../glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>          small_icon_size,
+               <a href="../glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
+<p>Used to notify this applet of a change in the panel size</p>
+<div class="refsect3">
+<a name="id-1.2.2.12.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>applet</p></td>
+<td class="parameter_description"><p>The applet recieving the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>panel_size</p></td>
+<td class="parameter_description"><p>The new panel size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_size</p></td>
+<td class="parameter_description"><p>Larget possible icon size for the panel</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>small_icon_size</p></td>
+<td class="parameter_description"><p>Smaller icon that will still fit on the panel</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="../gobject/gobject-Signals.html#G-SIGNAL-ACTION:CAPS">Action</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.24</div>
+</body>
+</html>
