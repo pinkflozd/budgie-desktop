@@ -433,27 +433,27 @@ budgie_applet_get_settings_prefix (<em class="parameter"><code><a class="link" h
 <pre class="programlisting"><span class="returnvalue">void</span>
 budgie_applet_update_popovers (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>,
                                <em class="parameter"><code><a class="link" href="BudgiePopoverManager.html" title="BudgiePopoverManager"><span class="type">BudgiePopoverManager</span></a> *manager</code></em>);</pre>
-<div class="refsect3">
-<a name="id-1.2.2.9.11.4"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody><tr>
-<td class="parameter_name"><p>manager</p></td>
-<td class="parameter_description"><p>. </p></td>
-<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
-</tr></tbody>
-</table></div>
-</div>
+<p>This virtual method should be implemented by panel applets that wish
+to support <span class="type">GtkPopover</span>'s natively. As each Budgie Panel may house multiple
+GtkPopover widgets, each one must be registered with the <em class="parameter"><code>manager</code></em>
+.</p>
+<p>During this call, it is safe to store a reference to the <em class="parameter"><code>manager</code></em>
+. In
+this call you should invoke <span class="type">“register_popover”</span> to
+register your popover with the panel manager.</p>
+<p>Each registered popover joins the global menu system of popovers in the
+panel. It is a requirement to register, otherwise the panel will not
+know when to expand and collapse the main panel harness to accomdate
+the GtkPopover.</p>
+<p><em class="parameter"><code>manager</code></em>
+: (nullable)</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="budgie-applet-get-supported-actions"></a><h3>budgie_applet_get_supported_actions ()</h3>
 <pre class="programlisting"><a class="link" href="BudgieApplet.html#BudgiePanelAction" title="enum BudgiePanelAction"><span class="returnvalue">BudgiePanelAction</span></a>
 budgie_applet_get_supported_actions (<em class="parameter"><code><a class="link" href="BudgieApplet.html" title="BudgieApplet"><span class="type">BudgieApplet</span></a> *self</code></em>);</pre>
+<p>Utility function for Python bindings. See <a class="link" href="BudgieApplet.html#BudgieApplet--supported-actions" title="The “supported-actions” property"><span class="type">“supported-actions”</span></a></p>
 </div>
 </div>
 <div class="refsect1">

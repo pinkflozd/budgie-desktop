@@ -34,6 +34,7 @@
     <keyword type="property" name="The “supported-actions” property" link="BudgieApplet.html#BudgieApplet--supported-actions"/>
     <keyword type="signal" name="The “panel-size-changed” signal" link="BudgieApplet.html#BudgieApplet-panel-size-changed"/>
     <keyword type="function" name="budgie_applet_info_new ()" link="BudgieAppletInfo.html#budgie-applet-info-new"/>
+    <keyword type="struct" name="struct BudgieAppletInfo" link="BudgieAppletInfo.html#BudgieAppletInfo-struct"/>
     <keyword type="property" name="The “alignment” property" link="BudgieAppletInfo.html#BudgieAppletInfo--alignment"/>
     <keyword type="property" name="The “applet” property" link="BudgieAppletInfo.html#BudgieAppletInfo--applet"/>
     <keyword type="property" name="The “description” property" link="BudgieAppletInfo.html#BudgieAppletInfo--description"/>
