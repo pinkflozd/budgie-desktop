@@ -227,8 +227,7 @@ public class Screenshot : GLib.Object {
         stage.queue_redraw();
         yield;
 
-        /* We now have returned from grab_window_screenshot, start a thread to
-         * dump said screenshot */
+        /* Back from the thread */
         Meta.Util.enable_unredirect_for_screen(screen);
 
         if (this.wrote_screenshot) {
