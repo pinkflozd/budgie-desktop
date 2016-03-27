@@ -47,36 +47,8 @@ public class Screenshot : GLib.Object {
     private bool wrote_screenshot = false;
     private string? final_filename = null;
 
-    void grab_area_screenshot(Clutter.Actor? stage)
-    {
-        /* TODO: Implement */
-    }
 
-    /* Take a screenshot of the given area */
-    public void take_area(int x, int y, int width, int height, string filename, ScreenshotCallback? cb)
-    {
-        unowned Meta.Screen? screen = wm.get_screen();
-        unowned Clutter.Actor? stage = Meta.Compositor.get_stage_for_screen(screen);
-
-        if (this.filename != null) {
-            if (cb != null) {
-                cb(this, false, null, "");
-            }
-            return;
-        }
-
-        this.filename = filename;
-        this.cb = cb;
-        this.screenshot_area = Cairo.RectangleInt() {
-            x = x, y = y, width = width, height = height
-        };
-
-        Meta.Util.disable_unredirect_for_screen(screen);
-        stage.paint.connect_after(grab_area_screenshot);
-        stage.queue_redraw();
-    }
-
-    OutputStream? get_stream_for_unique_path(string path, string filename, out string used_filename)
+    OutputStream? get_stream_for_unique_path(string path, string filename, out string used_filename) throws Error
     {
         string? real_filename = null;
 
@@ -108,7 +80,7 @@ public class Screenshot : GLib.Object {
         return null;
     }
 
-    OutputStream? get_stream_for_filename(string filename, out string used_filename)
+    OutputStream? get_stream_for_filename(string filename, out string used_filename) throws Error
     {
         string path = Environment.get_user_special_dir(UserDirectory.PICTURES);
         if (!FileUtils.test(path, FileTest.EXISTS)) {
@@ -124,7 +96,7 @@ public class Screenshot : GLib.Object {
         return stream;
     }
 
-    OutputStream? prepare_stream(string filename, out string used_filename)
+    OutputStream? prepare_stream(string filename, out string used_filename) throws Error
     {
         used_filename = null;
         if (Path.is_absolute(filename)) {
@@ -144,23 +116,70 @@ public class Screenshot : GLib.Object {
         this.wrote_screenshot = false;
 
         string? filename_used = null;
-        OutputStream? stream = this.prepare_stream(this.filename, out filename_used);
+        OutputStream? stream = null;
 
+        /* Catch-all for the errors */
+        try {
+            stream = this.prepare_stream(this.filename, out filename_used);
+        } catch (Error e) {
+            Idle.add(this.async_cb);
+            return null;
+        }
+
+        /* No stream */
         if (stream == null) {
+            Idle.add(this.async_cb);
             return null;
         }
         this.final_filename = filename_used;
 
         var pixbuf = Gdk.pixbuf_get_from_surface(image, 0, 0, image.get_width(), image.get_height());
 
-        if (!pixbuf.save_to_stream(stream, "png", null, null, "tEXt::Software", "gnome-screenshot", null)) {
+        try {
+            if (!pixbuf.save_to_stream(stream, "png", null, null, "tEXt::Software", "gnome-screenshot", null)) {
+                this.wrote_screenshot = false;
+            } else {
+                this.wrote_screenshot = true;
+            }
+        } catch (Error e) {
             this.wrote_screenshot = false;
-        } else {
-            this.wrote_screenshot = true;
         }
 
         Idle.add(this.async_cb);
         return null;
+    }
+
+
+    /* Begin actual screenshot taking logic */
+
+
+    void grab_area_screenshot(Clutter.Actor? stage)
+    {
+        /* TODO: Implement */
+    }
+
+    /* Take a screenshot of the given area */
+    public void take_area(int x, int y, int width, int height, string filename, ScreenshotCallback? cb)
+    {
+        unowned Meta.Screen? screen = wm.get_screen();
+        unowned Clutter.Actor? stage = Meta.Compositor.get_stage_for_screen(screen);
+
+        if (this.filename != null) {
+            if (cb != null) {
+                cb(this, false, null, "");
+            }
+            return;
+        }
+
+        this.filename = filename;
+        this.cb = cb;
+        this.screenshot_area = Cairo.RectangleInt() {
+            x = x, y = y, width = width, height = height
+        };
+
+        Meta.Util.disable_unredirect_for_screen(screen);
+        stage.paint.connect_after(grab_area_screenshot);
+        stage.queue_redraw();
     }
 
     void grab_window_screenshot(Clutter.Actor? stage)
