@@ -184,8 +184,6 @@ public class Screenshot : GLib.Object {
 
     void grab_window_screenshot(Clutter.Actor? stage)
     {
-        /* TODO: Implement */
-        Idle.add(this.async_cb);
         float actor_x, actor_y;
         Meta.Rectangle? rect;
         Cairo.RectangleInt clip;
