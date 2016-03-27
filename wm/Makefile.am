@@ -19,6 +19,7 @@ budgie_wm_SOURCES = \
 	keyboard.vala \
 	shim.vala \
 	windowmenu.vala \
+	screenshot.vala \
 	wm.vala
 
 budgie_wm_CFLAGS = \
