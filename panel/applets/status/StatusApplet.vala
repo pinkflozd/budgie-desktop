@@ -1,4 +1,4 @@
-1/*
+/*
  * This file is part of budgie-desktop
  * 
  * Copyright (C) 2015-2016 Ikey Doherty <ikey@solus-project.com>
