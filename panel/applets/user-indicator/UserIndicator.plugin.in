@@ -1,5 +1,5 @@
 [Plugin]
-Module=userindicator.so
+Module=libuserindicator.so
 Name=User Indicator
 _Description=User Indicator
 Authors=Solus Project

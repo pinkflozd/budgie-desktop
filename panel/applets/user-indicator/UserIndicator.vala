@@ -75,7 +75,7 @@ public void peas_register_types(TypeModule module)
 {
     // boilerplate - all modules need this
     var objmodule = module as Peas.ObjectModule;
-    objmodule.register_extension_type(typeof(Budgie.Plugin), typeof(UserIndicatorWindow));
+    objmodule.register_extension_type(typeof(Budgie.Plugin), typeof(UserIndicator));
 }
 
 /*
