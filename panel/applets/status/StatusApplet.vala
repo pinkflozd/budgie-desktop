@@ -1,4 +1,4 @@
-/*
+1/*
  * This file is part of budgie-desktop
  * 
  * Copyright (C) 2015-2016 Ikey Doherty <ikey@solus-project.com>
@@ -52,7 +52,7 @@ public class StatusApplet : Budgie.Applet
 
         blue = new BluetoothIndicator();
         widget.pack_start(blue, false, false, 2);
-
+        
         wrap.button_release_event.connect(on_button_release);
 
         var power = new Gtk.Image.from_icon_name("system-shutdown-symbolic", Gtk.IconSize.MENU);
@@ -71,7 +71,6 @@ public class StatusApplet : Budgie.Applet
         });
 
         show_all();
-
         setup_dbus();
     }
 
