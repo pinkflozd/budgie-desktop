@@ -27,38 +27,55 @@ public class UserIndicatorApplet : Budgie.Applet {
     public Gtk.Image? image = null;
     public Gtk.EventBox? ebox = null;
     public Gtk.Popover? popover = null;
-    public Gtk.Box? menu = null;
 
     public UserIndicator(string uuid) {
         Object(uuid: uuid);
-        image = new Gtk.Image.from_icon_name(USER_SYMBOLIC_ICON, Gtk.IconSize.MENU);
         
         ebox = new Gtk.EventBox();
+        image = new Gtk.Image.from_icon_name(USER_SYMBOLIC_ICON, Gtk.IconSize.MENU);
+        ebox.add(image); 
+
+        popover = new UserIndicatorWindow(ebox);
+
+        widget.button_press_event.connect((e)=> {
+            if (e.button != 1) {
+                return Gdk.EVENT_PROPAGATE;
+            }
+            Toggle();
+            return Gdk.EVENT_STOP;
+        });
+
+        popover.get_child().show_all();
+
         add(ebox);
-
-        ebox.add(image);            
-        
-        // Popover & Popover Menu stuff
-        menu = new Gtk.Box(Gtk.Orientation.VERTICAL, 10);
-    
-        string user_name = get_user_name();
-
-        Gtk.Box user_menu = create_menuitem(user_name, user_image, (user_image == USER_SYMBOLIC_ICON));
-        Gtk.Box lock_menu = create_menuitem(_("Lock"), "system-lock-screen-symbolic", true);
-        Gtk.Box suspend_menu = create_menuitem(_("Suspend"), "media-playback-pause-symbolic", true);
-        Gtk.Box reboot_menu = create_menuitem(_("Restart"), "media-playlist-repeat-symbolic", true);
-        Gtk.Box shutdown_menu = create_menuitem(_("Shutdown"), "system-shutdown-symbolic", true);
-        
-        menu.pack_start(user_menu, false, false, 0);
-        menu.pack_start(suspend_menu, false, false, 0);
-        menu.pack_start(reboot_menu, false, false, 0);
-        menu.pack_start(shutdown_menu, false, false, 0);
-        add(menu);
-
-        popover = new Gtk.Popover(ebox);
-
         show_all();
     }
+    
+    public void Toggle(){
+        if (popover.get_visible()) {
+            popover.hide();
+        } else {
+            popover.get_child().show_all();
+            this.manager.show_popover(ebox);
+        }        
+    }
+    
+    public override void invoke_action(Budgie.PanelAction action) {
+        Toggle();
+    }
+    
+    public override void update_popovers(Budgie.PopoverManager? manager) {
+        this.manager = manager;
+        manager.register_popover(widget, popover);
+    }    
+}
+
+[ModuleInit]
+public void peas_register_types(TypeModule module)
+{
+    // boilerplate - all modules need this
+    var objmodule = module as Peas.ObjectModule;
+    objmodule.register_extension_type(typeof(Budgie.Plugin), typeof(UserIndicatorWindow));
 }
 
 /*

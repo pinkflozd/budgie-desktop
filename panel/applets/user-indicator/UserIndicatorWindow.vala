@@ -15,6 +15,8 @@ public class UserIndicatorWindow : Gtk.Popover {
     //protected Act.UserManager? user_manager = null;
     //protected SList<Act.User>? users = null;
 
+    public Gtk.Box? menu = null;
+
     public UserIndicatorWindow() {
         //this.user_manager = new Act.UserManager();
         
@@ -22,6 +24,23 @@ public class UserIndicatorWindow : Gtk.Popover {
             //users = user_manager.list_users(); // Get users
        
             //get_current_user();
+
+            // Popover & Popover Menu stuff
+            menu = new Gtk.Box(Gtk.Orientation.VERTICAL, 10);
+        
+            string user_name = get_user_name();
+
+            Gtk.Box user_menu = create_menuitem(user_name, user_image, (user_image == USER_SYMBOLIC_ICON));
+            Gtk.Box lock_menu = create_menuitem(_("Lock"), "system-lock-screen-symbolic", true);
+            Gtk.Box suspend_menu = create_menuitem(_("Suspend"), "media-playback-pause-symbolic", true);
+            Gtk.Box reboot_menu = create_menuitem(_("Restart"), "media-playlist-repeat-symbolic", true);
+            Gtk.Box shutdown_menu = create_menuitem(_("Shutdown"), "system-shutdown-symbolic", true);
+            
+            menu.pack_start(user_menu, false, false, 0);
+            menu.pack_start(suspend_menu, false, false, 0);
+            menu.pack_start(reboot_menu, false, false, 0);
+            menu.pack_start(shutdown_menu, false, false, 0);
+            add(menu);
 
         //}   
     }
