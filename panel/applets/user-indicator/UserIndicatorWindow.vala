@@ -17,7 +17,8 @@ public class UserIndicatorWindow : Gtk.Popover {
 
     public Gtk.Box? menu = null;
 
-    public UserIndicatorWindow() {
+    public UserIndicatorWindow(Gtk.Widget? window_parent) {
+        Object(relative_to: window_parent);
         //this.user_manager = new Act.UserManager();
         
         //if (user_manager != null){
@@ -28,6 +29,7 @@ public class UserIndicatorWindow : Gtk.Popover {
             // Popover & Popover Menu stuff
             menu = new Gtk.Box(Gtk.Orientation.VERTICAL, 10);
         
+            string user_image = get_user_image();
             string user_name = get_user_name();
 
             Gtk.Box user_menu = create_menuitem(user_name, user_image, (user_image == USER_SYMBOLIC_ICON));

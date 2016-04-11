@@ -27,7 +27,8 @@ EXTRA_DIST += \
 plugin_LTLIBRARIES = libuserindicator.la
 
 libuserindicator_la_SOURCES = \
-    UserIndicator.vala
+    UserIndicator.vala \
+    UserIndicatorWindow.vala
 
 libuserindicator_la_CFLAGS = \
 	$(BUDGIE_BASE_CFLAGS) \

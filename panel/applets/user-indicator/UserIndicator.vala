@@ -21,23 +21,23 @@ public class UserIndicator : Budgie.Plugin, Peas.ExtensionBase
 
 public class UserIndicatorApplet : Budgie.Applet {
 
+    protected Gtk.EventBox? ebox;
+    protected UserIndicatorWindow? popover;
+    Gtk.Image image;
+
     private unowned Budgie.PopoverManager? manager = null;
     public string uuid { public set ; public get; }
 
-    public Gtk.Image? image = null;
-    public Gtk.EventBox? ebox = null;
-    public Gtk.Popover? popover = null;
-
-    public UserIndicator(string uuid) {
+    public UserIndicatorApplet(string uuid) {
         Object(uuid: uuid);
         
         ebox = new Gtk.EventBox();
         image = new Gtk.Image.from_icon_name(USER_SYMBOLIC_ICON, Gtk.IconSize.MENU);
         ebox.add(image); 
 
-        popover = new UserIndicatorWindow(ebox);
+        popover = new UserIndicatorWindow(image);
 
-        widget.button_press_event.connect((e)=> {
+        ebox.button_press_event.connect((e)=> {
             if (e.button != 1) {
                 return Gdk.EVENT_PROPAGATE;
             }
@@ -66,7 +66,7 @@ public class UserIndicatorApplet : Budgie.Applet {
     
     public override void update_popovers(Budgie.PopoverManager? manager) {
         this.manager = manager;
-        manager.register_popover(widget, popover);
+        manager.register_popover(ebox, popover);
     }    
 }
 

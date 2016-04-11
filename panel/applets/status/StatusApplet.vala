@@ -31,7 +31,6 @@ public class StatusApplet : Budgie.Applet
     protected Gtk.Box widget;
     protected BluetoothIndicator blue;
     protected SoundIndicator sound;
-    protected PowerIndicator power;
     protected Gtk.EventBox? wrap;
     protected RavenProxy? raven_proxy = null;
     private Budgie.PopoverManager? manager = null;
@@ -44,11 +43,8 @@ public class StatusApplet : Budgie.Applet
         widget = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         wrap.add(widget);
 
-        power = new PowerIndicator();
-        widget.pack_start(power, false, false, 0);
-
         sound = new SoundIndicator();
-        widget.pack_start(sound, false, false, 2);
+        widget.pack_start(sound, false, false, 0);
 
         blue = new BluetoothIndicator();
         widget.pack_start(blue, false, false, 2);
