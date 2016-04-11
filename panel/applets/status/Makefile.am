@@ -18,6 +18,7 @@ CLEANFILES = \
 DISTCLEANFILES = \
 	StatusApplet.plugin
 
+
 plugin_DATA += \
 	StatusApplet.plugin
 
@@ -29,6 +30,7 @@ plugin_LTLIBRARIES = libstatusapplet.la
 libstatusapplet_la_SOURCES = \
 	BluetoothIndicator.vala \
 	StatusApplet.vala \
+	PowerIndicator.vala \
 	SoundIndicator.vala
 
 libstatusapplet_la_CFLAGS = \
