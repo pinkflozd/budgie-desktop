@@ -32,38 +32,33 @@ public class UserIndicatorWindow : Gtk.Popover {
             string user_image = get_user_image();
             string user_name = get_user_name();
 
-            Gtk.Box user_menu = create_menuitem(user_name, user_image, (user_image == USER_SYMBOLIC_ICON));
-            Gtk.Box lock_menu = create_menuitem(_("Lock"), "system-lock-screen-symbolic", true);
-            Gtk.Box suspend_menu = create_menuitem(_("Suspend"), "media-playback-pause-symbolic", true);
-            Gtk.Box reboot_menu = create_menuitem(_("Restart"), "media-playlist-repeat-symbolic", true);
-            Gtk.Box shutdown_menu = create_menuitem(_("Shutdown"), "system-shutdown-symbolic", true);
+            // User Menu Creation
+            IndicatorItem user_menu = new IndicatorItem(user_name, user_image);
+            user_menu.margin_top = 10;
             
+            user_menu.arrow = new Gtk.Image.from_icon_name("pan-down-symbolic", Gtk.IconSize.MENU);
+            user_menu.pack_start(user_menu.arrow, false, false, 0);
+
+            // The rest
+            Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+
+            IndicatorItem lock_menu = new IndicatorItem(_("Lock"), "system-lock-screen-symbolic");
+            IndicatorItem suspend_menu = new IndicatorItem(_("Suspend"), "media-playback-pause-symbolic");
+            IndicatorItem reboot_menu = new IndicatorItem(_("Restart"), "media-playlist-repeat-symbolic");
+            
+            IndicatorItem shutdown_menu = new IndicatorItem(_("Shutdown"), "system-shutdown-symbolic");
+            shutdown_menu.margin_bottom = 10;
+
             menu.pack_start(user_menu, false, false, 0);
+            menu.pack_start(separator, false, false, 0);
+            menu.pack_start(lock_menu, false, false, 0);
             menu.pack_start(suspend_menu, false, false, 0);
             menu.pack_start(reboot_menu, false, false, 0);
             menu.pack_start(shutdown_menu, false, false, 0);
             add(menu);
 
+            set_size_request(250, 0);
         //}   
-    }
-    
-    // Create a Gtk.Box with the provided label and image
-    Gtk.Box create_menuitem(string label_string, string image_source, bool is_icon) {
-        Gtk.Box menu_item = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
- 
-        Gtk.Image image;
-
-        if (!is_icon) {
-            image = new Gtk.Image.from_file(image_source);
-        } else {
-            image = new Gtk.Image.from_icon_name(image_source, Gtk.IconSize.LARGE_TOOLBAR);
-        }
-        
-        Gtk.Label label = new Gtk.Label(label_string);
-
-        menu_item.pack_start(image, false, false, 0);
-        menu_item.pack_start(label, false, false, 0);
-        return menu_item;
     }
 
     // Get the current user
@@ -85,7 +80,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         //if ((this.current_user != null) && (this.current_user.icon_file != "")) { // If User has icon
           //  return current_user.icon_file;
         //} else {
-            return "systems-user-symbolic";
+            return USER_SYMBOLIC_ICON;
         //}       
     }
 
@@ -105,6 +100,40 @@ public class UserIndicatorWindow : Gtk.Popover {
         
         return user_name;
     }   
+}
+
+public class IndicatorItem : Gtk.Box {
+    public Gtk.Image arrow { public set ; public get; }
+    public Gtk.Image? image;
+
+    public IndicatorItem(string label_string, string image_source) {
+        Gtk.Box menu_item = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
+        int image_size = 16;
+
+        if (image_source.has_prefix("file:///")) {
+            image_size = 24;
+            image = new Gtk.Image.from_file(image_source);
+        } else {
+            if (image_source == USER_SYMBOLIC_ICON) {
+                image_size = 24;
+            }
+
+            image = new Gtk.Image.from_icon_name(image_source, Gtk.IconSize.INVALID);
+        }
+        
+        image.pixel_size = image_size; // Change to pixel size
+        
+        Gtk.Label label = new Gtk.Label(label_string);
+
+        menu_item.pack_start(image, false, false, 0);
+        menu_item.pack_start(label, true, true, 0);
+        
+        menu_item.baseline_position = Gtk.BaselinePosition.CENTER;
+        menu_item.margin_start = 10;
+        menu_item.margin_end = 10;
+
+        add(menu_item);
+    }
 }
 
 /*
