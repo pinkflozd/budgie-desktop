@@ -424,6 +424,22 @@ GtkPopover .scrollbar .trough {
     .list-row.activatable:selected .button { color: inherit; }
 }
 
+// User Menu
+.user-menu {
+    @extend .list;
+    padding: 10px;
+
+    .content-box {   
+        .indicator-item {
+            border: 0;
+        }
+
+        GtkSeparator {
+            color: transparentize($fg_color, 0.85);
+        }
+    }
+}
+
 // Panel
 .budgie-panel {
     @extend %widgets;

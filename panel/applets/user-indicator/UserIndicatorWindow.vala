@@ -9,6 +9,8 @@
  * (at your option) any later version.
  */
 
+public const int WINDOW_WIDTH = 250;
+
 public class UserIndicatorWindow : Gtk.Popover {
 
     //public Act.User? current_user = null;
@@ -26,38 +28,39 @@ public class UserIndicatorWindow : Gtk.Popover {
        
             //get_current_user();
 
-            // Popover & Popover Menu stuff
-            menu = new Gtk.Box(Gtk.Orientation.VERTICAL, 10);
+            // Menu creation
+            menu = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            Gtk.ListBox items = new Gtk.ListBox();
+
+            get_style_context().add_class("user-menu");       
+            items.get_style_context().add_class("content-box");
         
             string user_image = get_user_image();
             string user_name = get_user_name();
 
             // User Menu Creation
-            IndicatorItem user_menu = new IndicatorItem(user_name, user_image);
-            user_menu.margin_top = 10;
-            
-            user_menu.arrow = new Gtk.Image.from_icon_name("pan-down-symbolic", Gtk.IconSize.MENU);
-            user_menu.pack_start(user_menu.arrow, false, false, 0);
+            IndicatorItem user_menu = new IndicatorItem(user_name, user_image, true);
 
             // The rest
             Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 
-            IndicatorItem lock_menu = new IndicatorItem(_("Lock"), "system-lock-screen-symbolic");
-            IndicatorItem suspend_menu = new IndicatorItem(_("Suspend"), "media-playback-pause-symbolic");
-            IndicatorItem reboot_menu = new IndicatorItem(_("Restart"), "media-playlist-repeat-symbolic");
-            
-            IndicatorItem shutdown_menu = new IndicatorItem(_("Shutdown"), "system-shutdown-symbolic");
-            shutdown_menu.margin_bottom = 10;
+            IndicatorItem lock_menu = new IndicatorItem(_("Lock"), "system-lock-screen-symbolic", false);
+            IndicatorItem suspend_menu = new IndicatorItem(_("Suspend"), "media-playback-pause-symbolic", false);
+            IndicatorItem reboot_menu = new IndicatorItem(_("Restart"), "media-playlist-repeat-symbolic", false);
+            IndicatorItem shutdown_menu = new IndicatorItem(_("Shutdown"), "system-shutdown-symbolic", false);
 
-            menu.pack_start(user_menu, false, false, 0);
-            menu.pack_start(separator, false, false, 0);
-            menu.pack_start(lock_menu, false, false, 0);
-            menu.pack_start(suspend_menu, false, false, 0);
-            menu.pack_start(reboot_menu, false, false, 0);
-            menu.pack_start(shutdown_menu, false, false, 0);
+            // Adding stuff
+            items.add(user_menu);
+            items.add(separator);
+            items.add(lock_menu);
+            items.add(suspend_menu);
+            items.add(reboot_menu);
+            items.add(shutdown_menu);
+            
+            menu.pack_start(items, false, false, 0); 
             add(menu);
 
-            set_size_request(250, 0);
+            set_size_request(WINDOW_WIDTH, 0);
         //}   
     }
 
@@ -102,12 +105,11 @@ public class UserIndicatorWindow : Gtk.Popover {
     }   
 }
 
-public class IndicatorItem : Gtk.Box {
-    public Gtk.Image arrow { public set ; public get; }
-    public Gtk.Image? image;
-
-    public IndicatorItem(string label_string, string image_source) {
+public class IndicatorItem : Gtk.Button {
+    public IndicatorItem(string label_string, string image_source, bool? add_arrow) {
         Gtk.Box menu_item = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
+        Gtk.Image image;
+
         int image_size = 16;
 
         if (image_source.has_prefix("file:///")) {
@@ -126,13 +128,16 @@ public class IndicatorItem : Gtk.Box {
         Gtk.Label label = new Gtk.Label(label_string);
 
         menu_item.pack_start(image, false, false, 0);
-        menu_item.pack_start(label, true, true, 0);
-        
-        menu_item.baseline_position = Gtk.BaselinePosition.CENTER;
-        menu_item.margin_start = 10;
-        menu_item.margin_end = 10;
+        menu_item.pack_start(label, false, false, 0);
+
+        if (add_arrow) {
+            Gtk.Image arrow = new Gtk.Image.from_icon_name("pan-down-symbolic", Gtk.IconSize.MENU);
+            menu_item.pack_end(arrow, false, false, 0);
+        }
 
         add(menu_item);
+        get_style_context().add_class("indicator-item");
+        get_style_context().add_class("flat");
     }
 }
 
