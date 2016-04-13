@@ -11,6 +11,19 @@
 
 public const int WINDOW_WIDTH = 250;
 
+[DBus (name="org.gnome.SessionManager")]
+public interface SessionManager : Object
+{
+    public abstract async void Reboot() throws Error;
+    public abstract async void Shutdown() throws Error;
+}
+
+[DBus (name="org.freedesktop.DisplayManager.Seat")]
+public interface DMSeat : Object
+{
+    public abstract void lock() throws IOError;
+}
+
 public class UserIndicatorWindow : Gtk.Popover {
 
     //public Act.User? current_user = null;
@@ -20,13 +33,31 @@ public class UserIndicatorWindow : Gtk.Popover {
     public Gtk.Box? menu = null;
     public Gtk.Revealer? user_section = null;
 
+    private DMSeat? saver = null;
+    private SessionManager? session = null;
+
+    async void setup_dbus() {
+        var path = Environment.get_variable("XDG_SEAT_PATH");
+        try {
+            saver = yield Bus.get_proxy(BusType.SYSTEM, "org.freedesktop.DisplayManager", path);
+        } catch (Error e) {
+            warning("Unable to contact login manager: %s", e.message);
+            return;
+        }
+        try {
+            session = yield Bus.get_proxy(BusType.SESSION, "org.gnome.SessionManager", "/org/gnome/SessionManager");
+        } catch (Error e) {
+            warning("Unable to contact GNOME Session: %s", e.message);
+        }
+    }
+
     public UserIndicatorWindow(Gtk.Widget? window_parent) {
         Object(relative_to: window_parent);
         //this.user_manager = new Act.UserManager();
-        
+
         //if (user_manager != null){
             //users = user_manager.list_users(); // Get users
-       
+
             //get_current_user();
 
             // Menu creation
@@ -35,15 +66,15 @@ public class UserIndicatorWindow : Gtk.Popover {
 
             get_style_context().add_class("user-menu");       
             items.get_style_context().add_class("content-box");
-        
+
             // User Menu Creation
 
             string user_image = get_user_image();
             string user_name = get_user_name();
             IndicatorItem user_menu = new IndicatorItem(user_name, user_image, true);
             user_section = create_usersection();
-       
-        
+
+
             // The rest
             Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 
@@ -71,18 +102,44 @@ public class UserIndicatorWindow : Gtk.Popover {
             user_menu.button_release_event.connect((e) => {
                 if (e.button != 1) {
                     return Gdk.EVENT_PROPAGATE;
-                }                
+                }
                 toggle_usersection();
                 return Gdk.EVENT_STOP;
             });
             
+            lock_menu.button_release_event.connect((e) => {
+                if (e.button != 1) {
+                    return Gdk.EVENT_PROPAGATE;
+                }
+                lock_screen();
+                return Gdk.EVENT_STOP;                
+            });
+ 
+            reboot_menu.button_release_event.connect((e) => {
+                if (e.button != 1) {
+                    return Gdk.EVENT_PROPAGATE;
+                }
+                reboot();
+                return Gdk.EVENT_STOP;
+            });
+
+            shutdown_menu.button_release_event.connect((e) => {
+                if (e.button != 1) {
+                    return Gdk.EVENT_PROPAGATE;
+                }
+                shutdown();
+                return Gdk.EVENT_STOP;
+            });
+
             this.closed.connect(() => { // When the UserIndicatorWindow closes
                 hide_usersection(); // Ensure User Section is hidden.
-            });            
+            });
 
-        //}   
+            setup_dbus.begin();
+
+        //}
     }
-    
+
     private Gtk.Revealer create_usersection() {
         Gtk.Revealer user_section = new Gtk.Revealer();
         Gtk.Box user_section_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
@@ -94,7 +151,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         
         return user_section;
     }    
-    
+
     public void toggle_usersection() {
         if (user_section != null){
             if (!user_section.child_revealed) { // If the User Section is not revealed
@@ -104,7 +161,7 @@ public class UserIndicatorWindow : Gtk.Popover {
             }
         }
     }
-    
+
     public void show_usersection() {
         if (!user_section.child_revealed) {
             user_section.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -118,7 +175,7 @@ public class UserIndicatorWindow : Gtk.Popover {
             user_section.reveal_child = false;
         }
     }
-    
+
     // Get the current user
     /*void get_current_user() {
         if (this.users == null){
@@ -157,6 +214,30 @@ public class UserIndicatorWindow : Gtk.Popover {
         //}
         
         return user_name;
+    }
+
+    void reboot() {
+        if (session == null) {
+            return;
+        }
+
+        session.Reboot.begin();
+    }
+
+    void shutdown() {
+        if (session == null) {
+            return;
+        }
+
+        session.Shutdown.begin();
+    }
+
+    void lock_screen() {
+        try {
+            saver.lock();
+        } catch (Error e) {
+            warning("Cannot lock screen: %s", e.message);
+        }
     }
 }
 
