@@ -35,15 +35,24 @@ public class UserIndicatorWindow : Gtk.Popover {
 
     private DMSeat? saver = null;
     private SessionManager? session = null;
+    private LogindInterface? logind_interface = null;
 
     async void setup_dbus() {
         var path = Environment.get_variable("XDG_SEAT_PATH");
+        
         try {
             saver = yield Bus.get_proxy(BusType.SYSTEM, "org.freedesktop.DisplayManager", path);
         } catch (Error e) {
             warning("Unable to contact login manager: %s", e.message);
             return;
         }
+        
+        try {
+            logind_interface = yield Bus.get_proxy(BusType.SYSTEM, "org.freedesktop.login1", "/org/freedesktop/login1");
+        } catch (Error e) {
+            warning("Unable to contact logind: %s", e.message);
+        }
+
         try {
             session = yield Bus.get_proxy(BusType.SESSION, "org.gnome.SessionManager", "/org/gnome/SessionManager");
         } catch (Error e) {
@@ -128,6 +137,14 @@ public class UserIndicatorWindow : Gtk.Popover {
                     return Gdk.EVENT_PROPAGATE;
                 }
                 shutdown();
+                return Gdk.EVENT_STOP;
+            });
+
+            suspend_menu.button_release_event.connect((e) => {
+                if (e.button != 1) {
+                    return Gdk.EVENT_PROPAGATE;
+                }
+                suspend();
                 return Gdk.EVENT_STOP;
             });
 
@@ -230,6 +247,14 @@ public class UserIndicatorWindow : Gtk.Popover {
         }
 
         session.Shutdown.begin();
+    }
+    
+    void suspend() {
+        if (logind_interface == null) {
+            return;
+        }
+        
+        logind_interface.suspend(true);
     }
 
     void lock_screen() {

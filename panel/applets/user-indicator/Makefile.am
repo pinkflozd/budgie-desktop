@@ -27,6 +27,7 @@ EXTRA_DIST += \
 plugin_LTLIBRARIES = libuserindicator.la
 
 libuserindicator_la_SOURCES = \
+    DBusInterfaces.vala \
     UserIndicator.vala \
     UserIndicatorWindow.vala
 
