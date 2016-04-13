@@ -18,6 +18,7 @@ public class UserIndicatorWindow : Gtk.Popover {
     //protected SList<Act.User>? users = null;
 
     public Gtk.Box? menu = null;
+    public Gtk.Revealer? user_section = null;
 
     public UserIndicatorWindow(Gtk.Widget? window_parent) {
         Object(relative_to: window_parent);
@@ -35,12 +36,14 @@ public class UserIndicatorWindow : Gtk.Popover {
             get_style_context().add_class("user-menu");       
             items.get_style_context().add_class("content-box");
         
+            // User Menu Creation
+
             string user_image = get_user_image();
             string user_name = get_user_name();
-
-            // User Menu Creation
             IndicatorItem user_menu = new IndicatorItem(user_name, user_image, true);
-
+            user_section = create_usersection();
+       
+        
             // The rest
             Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 
@@ -51,6 +54,7 @@ public class UserIndicatorWindow : Gtk.Popover {
 
             // Adding stuff
             items.add(user_menu);
+            items.add(user_section);
             items.add(separator);
             items.add(lock_menu);
             items.add(suspend_menu);
@@ -61,9 +65,60 @@ public class UserIndicatorWindow : Gtk.Popover {
             add(menu);
 
             set_size_request(WINDOW_WIDTH, 0);
+
+            // Events
+            
+            user_menu.button_release_event.connect((e) => {
+                if (e.button != 1) {
+                    return Gdk.EVENT_PROPAGATE;
+                }                
+                toggle_usersection();
+                return Gdk.EVENT_STOP;
+            });
+            
+            this.closed.connect(() => { // When the UserIndicatorWindow closes
+                hide_usersection(); // Ensure User Section is hidden.
+            });            
+
         //}   
     }
+    
+    private Gtk.Revealer create_usersection() {
+        Gtk.Revealer user_section = new Gtk.Revealer();
+        Gtk.Box user_section_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+        IndicatorItem switch_user_menu = new IndicatorItem(_("Switch User"), "network-transmit-receive-symbolic", false);
+        IndicatorItem logout_menu = new IndicatorItem(_("Logout"), "application-exit-symbolic", false);
+        user_section_box.pack_start(switch_user_menu, false, false, 0); // Add the Switch User item
+        user_section_box.pack_start(logout_menu, false, false, 0); // Add the Logout item
+        user_section.add(user_section_box); // Add the User Section box
+        
+        return user_section;
+    }    
+    
+    public void toggle_usersection() {
+        if (user_section != null){
+            if (!user_section.child_revealed) { // If the User Section is not revealed
+                show_usersection();
+            } else {
+                hide_usersection();
+            }
+        }
+    }
+    
+    public void show_usersection() {
+        if (!user_section.child_revealed) {
+            user_section.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+            user_section.reveal_child = true;
+        }
+    }
 
+    public void hide_usersection() {
+        if (user_section.child_revealed) {
+            user_section.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+            user_section.reveal_child = false;
+        }
+    }
+    
     // Get the current user
     /*void get_current_user() {
         if (this.users == null){
@@ -102,9 +157,10 @@ public class UserIndicatorWindow : Gtk.Popover {
         //}
         
         return user_name;
-    }   
+    }
 }
 
+// Individual Indicator Items
 public class IndicatorItem : Gtk.Button {
     public IndicatorItem(string label_string, string image_source, bool? add_arrow) {
         Gtk.Box menu_item = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
