@@ -432,12 +432,14 @@ GtkPopover .scrollbar .trough {
     .content-box {
         .indicator-item {
             color: $fg_color;
-            
+
+            &, &:selected, &:focus, &:active {
+                border: 0;
+            }
+
             &:selected, &:active {
                 background-color: transparent;
             }
-
-            border: 0;
         }
 
         GtkSeparator {
