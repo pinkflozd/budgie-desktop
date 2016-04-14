@@ -276,7 +276,8 @@ public class UserIndicatorWindow : Gtk.Popover {
         }
         
         try {
-            logind_interface.suspend(true);
+            lock_screen();
+            logind_interface.suspend(false);
         } catch (Error e) {
             warning("Cannot suspend: %s", e.message);
         }
