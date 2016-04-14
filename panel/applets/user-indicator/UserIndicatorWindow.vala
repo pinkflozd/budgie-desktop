@@ -204,6 +204,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         if (!user_section.child_revealed) {
             user_section.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             user_section.reveal_child = true;
+            user_item.set_arrow("up");
         }
     }
 
@@ -211,6 +212,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         if (user_section.child_revealed) {
             user_section.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             user_section.reveal_child = false;
+            user_item.set_arrow("down");
         }
     }
     
@@ -302,6 +304,7 @@ public class UserIndicatorWindow : Gtk.Popover {
 // Individual Indicator Items
 public class IndicatorItem : Gtk.Button {   
     private Gtk.Box? menu_item = null;
+    private Gtk.Image? arrow = null;
     private Gtk.Image? button_image = null;
     private Gtk.Label? button_label = null;
 
@@ -332,7 +335,7 @@ public class IndicatorItem : Gtk.Button {
         menu_item.pack_start(button_label, false, false, 0);
 
         if (add_arrow) {
-            Gtk.Image arrow = new Gtk.Image.from_icon_name("pan-down-symbolic", Gtk.IconSize.MENU);
+            arrow = new Gtk.Image.from_icon_name("pan-down-symbolic", Gtk.IconSize.MENU);
             menu_item.pack_end(arrow, false, false, 0);
         }
 
@@ -341,6 +344,14 @@ public class IndicatorItem : Gtk.Button {
         get_style_context().add_class("flat");
     }
     
+    public void set_arrow(string direction) {
+        if (arrow == null) {
+            return;
+        }
+        
+        arrow.set_from_icon_name("pan-" + direction + "-symbolic", Gtk.IconSize.MENU);
+    }
+
     public void set_image(string source) {
         Gdk.Pixbuf pixbuf = null;
 
