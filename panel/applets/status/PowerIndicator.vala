@@ -1,6 +1,6 @@
 /*
  * This file is part of budgie-desktop
- * 
+ *
  * Copyright (C) 2015-2016 Ikey Doherty <ikey@solus-project.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,9 @@ public class PowerIndicator : Gtk.Bin
 {
 
     /** Widget containing battery icons to display */
+    public Gtk.EventBox? ebox = null;
     public Gtk.Box widget { protected set; public get; }
+    public Gtk.Popover? popover = null;
 
     /** Our upower client */
     public Up.Client client { protected set; public get; }
@@ -33,13 +35,41 @@ public class PowerIndicator : Gtk.Bin
 
     public PowerIndicator()
     {
+        ebox = new Gtk.EventBox();
+        add(ebox);
+
         batteries = new List<Up.Device>();
-
         widget = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 2);
-        add(widget);
+        ebox.add(widget);
 
+        var menu = new GLib.Menu();
+        var power_settings = new GLib.MenuItem(_("Power settings"), "power.settings");
+        menu.append_item(power_settings);
+
+        popover = new Gtk.Popover.from_model(widget, menu);
+        popover.get_child().show_all();
+
+        var group = new GLib.SimpleActionGroup();
+        var power = new GLib.SimpleAction("settings", null);
+        power.activate.connect(open_power_settings);
+        group.add_action(power);
+
+        this.insert_action_group("power", group);
         client = new Up.Client();
         update_ui();
+    }
+
+    void open_power_settings() {
+        var app_info = new DesktopAppInfo("gnome-power-panel.desktop");
+        if (app_info == null) {
+            return;
+        }
+
+        try {
+            app_info.launch(null, null);
+        } catch (Error e) {
+            message("Unable to launch gnome-power-panel.desktop: %s", e.message);
+        }
     }
 
     /**

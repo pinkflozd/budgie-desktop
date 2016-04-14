@@ -22,12 +22,12 @@ us!!
  * [ ] Add pinning capabilities to the Budgie Menu itself
  * [x] Disallow Ugly Apps from overriding the icon (main chrome instance, hexchat, etc)
  * [ ] Turn Power Icon into a user menu (Hibernate, Switch User, etc)
- * [ ] Ensure all popover-associated applets use this as  the *primary* action, no
+ * [x] Ensure all popover-associated applets use this as  the *primary* action, no
        more right-click left-click nonsense. Left click only.
  * [ ] Just because it's at the end of the panel, doesn't mean it needs to launch
        feckin Raven. Notification icon + sound are sufficient.
  * [ ] Add intellihide.
- * [ ] More popovers.
+ * [x] More popovers.
  * [ ] Add workaround for clicking on the desktop to allow dismissing of Raven
        for when Nautilus isn't being used..
 
@@ -37,7 +37,7 @@ us!!
  * [ ] Switch to a GtkFlowBox for better sorting
 
  ![Popovers Everywhere](http://cdn.meme.am/instances/500x/63501402.jpg)
- 
+
 **Raven**
 
  * [ ] Add proper Raven API for applets (single instance, unlike Budgie Panel)
