@@ -1,6 +1,6 @@
 /*
  * This file is part of budgie-desktop
- * 
+ *
  * Copyright (C) 2015-2016 Solus Project
  *
  * This program is free software; you can redistribute it and/or modify
@@ -11,7 +11,6 @@
 
 [DBus (name = "org.freedesktop.Accounts")]
 interface AccountsInterface : Object {
-    public abstract string[] list_cached_users() throws IOError;
     public abstract string find_user_by_name(string username) throws IOError;
 }
 
@@ -22,7 +21,7 @@ interface AccountUserInterface : Object {
 
 [DBus (name = "org.freedesktop.DBus.Properties")]
 interface PropertiesInterface : Object {
-    public abstract Variant get(string interface, string property) throws IOError;   
+    public abstract Variant get(string interface, string property) throws IOError;
     public signal void properties_changed();
 }
 
