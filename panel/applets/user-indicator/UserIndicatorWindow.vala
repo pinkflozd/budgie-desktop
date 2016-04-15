@@ -15,9 +15,7 @@ public const string FD_DM = "org.freedesktop.DisplayManager";
 public const string LOGIND_LOGIN = "org.freedesktop.login1";
 public const string G_SESSION = "org.gnome.SessionManager";
 
-public const string USER = _("User");
 public const string UNABLE_CONTACT = "Unable to contact ";
-public const int WINDOW_WIDTH = 250;
 
 public class UserIndicatorWindow : Gtk.Popover {
     public Gtk.Box? menu = null;
@@ -117,7 +115,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         menu.pack_start(items, false, false, 0);
         add(menu);
 
-        set_size_request(WINDOW_WIDTH, 0);
+        set_size_request(250, 0);
 
         // Events
 
