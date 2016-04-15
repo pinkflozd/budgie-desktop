@@ -196,7 +196,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         }
     }
 
-    public void show_usersection() {
+    private void show_usersection() {
         if (!user_section.child_revealed) {
             user_section.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             user_section.reveal_child = true;
@@ -204,7 +204,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         }
     }
 
-    public void hide_usersection() {
+    private void hide_usersection() {
         if (user_section.child_revealed) {
             user_section.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             user_section.reveal_child = false;
@@ -213,7 +213,7 @@ public class UserIndicatorWindow : Gtk.Popover {
     }
 
     // Set up User info in user_item
-    public void update_userinfo() {
+    private void update_userinfo() {
         string user_image = get_user_image();
         string user_name = get_user_name();
 
@@ -222,7 +222,7 @@ public class UserIndicatorWindow : Gtk.Popover {
     }
 
     // Get the user image and if we fallback to icon_name
-    string get_user_image() {
+    private string get_user_image() {
         string image = USER_SYMBOLIC_ICON; // Default to symbolic icon
 
         if (current_user_props != null) {
@@ -240,7 +240,7 @@ public class UserIndicatorWindow : Gtk.Popover {
     }
 
     // Get the User's name
-    string get_user_name() {
+    private string get_user_name() {
         string user_name = current_username; // Default to current_username
 
         if (current_user_props != null) {
@@ -258,7 +258,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         return user_name;
     }
 
-    void logout() {
+    private void logout() {
         if (session == null) {
             return;
         }
@@ -270,7 +270,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         }
     }
 
-    void reboot() {
+    private void reboot() {
         if (session == null) {
             return;
         }
@@ -278,7 +278,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         session.Reboot.begin();
     }
 
-    void shutdown() {
+    private void shutdown() {
         if (session == null) {
             return;
         }
@@ -286,7 +286,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         session.Shutdown.begin();
     }
 
-    void suspend() {
+    private void suspend() {
         if (logind_interface == null) {
             return;
         }
@@ -299,7 +299,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         }
     }
 
-    void lock_screen() {
+    private void lock_screen() {
         try {
             this.hide();
             saver.lock();
@@ -363,6 +363,7 @@ public class IndicatorItem : Gtk.Button {
 
     public new void set_image(string source) {
         Gdk.Pixbuf pixbuf = null;
+        bool is_user_image = false;
 
         if (button_image == null) {
             button_image = new Gtk.Image();
@@ -371,6 +372,14 @@ public class IndicatorItem : Gtk.Button {
         int image_size = 24;
 
         if (source.has_prefix("/")) {
+            is_user_image = !source.has_suffix(".face");
+
+            if (!is_user_image) { // If file ends with .face
+                source = USER_SYMBOLIC_ICON; // Change to symbolic icon
+            }
+        }
+
+        if (is_user_image) { // Valid user image
             try {
                 pixbuf = new Gdk.Pixbuf.from_file_at_size(source, image_size, image_size);
             } catch (Error e) {
