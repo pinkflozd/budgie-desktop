@@ -363,20 +363,14 @@ public class IndicatorItem : Gtk.Button {
 
     public new void set_image(string source) {
         Gdk.Pixbuf pixbuf = null;
-        bool is_user_image = false;
+        bool has_slash_prefix = source.has_prefix("/");
+        bool is_user_image = (has_slash_prefix && !source.has_suffix(".face"));
+
+        source = (has_slash_prefix && !is_user_image) ? USER_SYMBOLIC_ICON : source;
+        int image_size = (is_user_image || (source == USER_SYMBOLIC_ICON)) ? 24 : 16;
 
         if (button_image == null) {
             button_image = new Gtk.Image();
-        }
-
-        int image_size = 24;
-
-        if (source.has_prefix("/")) {
-            is_user_image = !source.has_suffix(".face");
-
-            if (!is_user_image) { // If file ends with .face
-                source = USER_SYMBOLIC_ICON; // Change to symbolic icon
-            }
         }
 
         if (is_user_image) { // Valid user image
@@ -387,10 +381,6 @@ public class IndicatorItem : Gtk.Button {
             }
         } else {
             try {
-                if (source != USER_SYMBOLIC_ICON) {
-                    image_size = 16;
-                }
-
                 Gtk.IconTheme icon_theme = Gtk.IconTheme.get_default(); // Get the icon theme
                 Gtk.IconInfo icon_info = icon_theme.lookup_icon(source, image_size, 0);
                 pixbuf = icon_info.load_icon();
