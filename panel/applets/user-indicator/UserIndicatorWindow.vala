@@ -228,9 +228,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         if (current_user_props != null) {
             try {
                 string icon_file = current_user_props.get(ACCOUNTSSERVICE_USER, "IconFile").get_string();
-                if (icon_file != "") {
-                    image = icon_file;
-                }
+                image = (icon_file != "") ? icon_file : image;
             } catch (Error e) {
                 warning("Failed to fetch IconFile: %s", e.message);
             }
@@ -246,10 +244,7 @@ public class UserIndicatorWindow : Gtk.Popover {
         if (current_user_props != null) {
             try {
                 string real_name = current_user_props.get(ACCOUNTSSERVICE_USER, "RealName").get_string();
-
-                if (real_name != ""){ // If a real name is set
-                    user_name = real_name;
-                }
+                user_name = (real_name != "") ? real_name : user_name;
             } catch (Error e) {
                 warning("Failed to fetch RealName: %s", e.message);
             }
