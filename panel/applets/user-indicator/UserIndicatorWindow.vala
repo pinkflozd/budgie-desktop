@@ -161,9 +161,7 @@ public class UserIndicatorWindow : Gtk.Popover {
             return Gdk.EVENT_STOP;
         });
 
-        this.closed.connect(() => { // When the UserIndicatorWindow closes
-            hide_usersection(); // Ensure User Section is hidden.
-        });
+        this.closed.connect(hide_usersection); // Ensure User Section is hidden.
     }
 
     private Gtk.Revealer create_usersection() {
