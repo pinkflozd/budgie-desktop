@@ -24,8 +24,8 @@ public class PowerIndicator : Gtk.Bin
 
     /** Widget containing battery icons to display */
     public Gtk.EventBox? ebox = null;
-    public Gtk.Box widget { protected set; public get; }
     public Gtk.Popover? popover = null;
+    private Gtk.Box widget = null;
 
     /** Our upower client */
     public Up.Client client { protected set; public get; }
@@ -43,11 +43,9 @@ public class PowerIndicator : Gtk.Bin
         ebox.add(widget);
 
         var menu = new GLib.Menu();
-        var power_settings = new GLib.MenuItem(_("Power settings"), "power.settings");
-        menu.append_item(power_settings);
+        menu.append(_("Power settings"), "power.settings");
 
-        popover = new Gtk.Popover.from_model(widget, menu);
-        popover.get_child().show_all();
+        popover = new Gtk.Popover.from_model(ebox, menu);
 
         var group = new GLib.SimpleActionGroup();
         var power = new GLib.SimpleAction("settings", null);
